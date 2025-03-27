@@ -1,0 +1,49 @@
+.goToback {
+  color: #3f51b5;
+  padding-top: 1rem;
+  span {
+    background-color: #d3d3d3;
+
+    padding: 0.2rem;
+    background-color: 1px solide #3f51b5;
+    &:hover {
+      cursor: pointer;
+      color: black;
+      transition: color 0.2s ease-in-out;
+    }
+  }
+}
+
+form {
+  width: 25vw;
+  label {
+    margin-bottom: .25rem;
+  }
+  label:has(input[type="text"]) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    input {
+      padding: 0.25rem;
+      border-color: #d3d3d3;
+      &:focus {
+        outline: 2px solid #3f51b5;
+      }
+    }
+  }
+}
+
+.btn__action {
+  padding: 0.25rem;
+  color: #000;
+  width: 100%;
+  &--primary {
+    background-color: #3f51b5;
+  }
+  &:hover {
+    cursor: pointer;
+    color: #000000;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out, color 0.2s ease-in;
+  }
+}

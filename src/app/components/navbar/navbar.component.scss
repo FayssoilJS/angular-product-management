@@ -1,0 +1,19 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    .navbar__links {
+        font-size: 1.2em;
+        .navbar__links--item {
+            margin-left: .5rem;
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+}
+.active {
+    color: #18e;
+}

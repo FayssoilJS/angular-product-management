@@ -1,0 +1,36 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Camputer",
+      "price": 2000,
+      "quantity": 100,
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "2",
+      "name": "Printer",
+      "price": 3000,
+      "quantity": 20,
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "942c",
+      "name": "DVX",
+      "price": "200",
+      "quantity": "25",
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "d794",
+      "name": "DVD",
+      "price": "100",
+      "quantity": "25",
+      "available": true,
+      "selected": true
+    }
+  ]
+}

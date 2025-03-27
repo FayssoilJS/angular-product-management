@@ -1,0 +1,67 @@
+<nav class="navbar">
+    <div class="navbar__nav">
+        <button (click)="OnGetAllproducts()" class="navbar__nav--btn">Toutes</button>
+        <button (click)="onGetSelectedProducts()" class="navbar__nav--btn">Sélectionné</button>
+        <button (click)="onGetAvailableProducts()" class="navbar__nav--btn">Disponibles</button>
+        <button (click)="onAddProduct()" class="navbar__nav--btn">Nouveau</button>
+    </div>
+    <div class="navbar__search">
+        <form>
+            <input [(ngModel)]="keyword" name="keyword" type="text">
+            <button (click)="onSearch()" class="btn__search">Rechercher</button>
+        </form>
+    </div>
+</nav>
+
+<div class="products__list">
+
+    <ng-container *ngIf="dataState$ | async as result" [ngSwitch]="result.dataState">
+
+        <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+            Chargement ...
+        </ng-container>
+
+        <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Quantites</th>
+                        <th>sélectionné</th>
+                        <th>Disponible</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="result.data && result.data.length">
+                    <tr *ngFor="let product of result.data">
+                        <td> {{product.id}} </td>
+                        <td> {{product.name}} </td>
+                        <td> {{product.price}} </td>
+                        <td> {{product.quantity}} </td>
+                        <td> {{product.selected}} </td>
+                        <td> {{product.available}} </td>
+                        <td>
+                            <button (click)="onDeleteProduct(product.id)" class="btn__action btn__action--danger">supprimer</button>
+                        </td>
+                        <td>
+                            <button (click)="onEditeProduct(product.id)" class="btn__action btn__action--light">modifier</button>
+                        </td>
+                        <td>
+                            <button class="btn__action btn__action--success ">Sélectionner</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="!result.data || result.data.length === 0" class="noData">
+                vide
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+            {{result.errorMessage}}
+        </ng-container>
+
+    </ng-container>
+    
+</div>

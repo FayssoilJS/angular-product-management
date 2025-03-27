@@ -1,0 +1,41 @@
+<div class="goToback">
+    <span (click)="onGoToBack()">
+        Retour
+    </span>
+</div>
+
+<h1 class="page__title"> Ajouter un produit </h1>
+<div *ngIf="addProductForm">
+    <form [formGroup]="addProductForm">
+
+        <div>
+            <label>
+            <span>Nom</span> 
+            <input type="text" formControlName="name">
+            </label>
+            <label>
+                Prix
+                <input type="text" formControlName="price">
+            </label>
+            <label>
+                Quantités
+                <input type="text" formControlName="quantity">
+            </label>
+            <label>
+                <input type="checkbox" formControlName="selected">
+                Sélectionné ?
+            </label>
+            <label>
+                <input type="checkbox" formControlName="available">
+                Disponible ?
+            </label>
+        </div>
+
+        <button (click)="onAddProduct()" class="btn__action btn__action--primary">Enregistrer</button>
+
+    </form>
+    <pre>
+        -----------form----------
+        {{addProductForm.value|json}}
+    </pre>
+</div>

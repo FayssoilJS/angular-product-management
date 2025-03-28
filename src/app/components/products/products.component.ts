@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ProductsComponent {
 
-  dataState$!: Observable<AppDataState<Product[]>> ;
+  products$!: Observable<AppDataState<Product[]>> ;
   readonly DataStateEnum = DataStateEnum; 
 
   keyword!: string;
@@ -26,36 +26,25 @@ export class ProductsComponent {
 
   //Recuperer l'etat de donnnees de toutes les produits.
   public OnGetAllproducts(): void {
-    this.dataState$ = this.productsService.getAllProducts();
+    this.products$ = this.productsService.getAllProducts();
   }
 
   //Recuperer l'etat de donnnees de toutes les produits selectionner.
   public onGetSelectedProducts(): void {
-    this.dataState$ = this.productsService.getSelectedProducts();
+    this.products$ = this.productsService.getSelectedProducts();
   }
 
   //Recuperer l'etat de donnnees de toutes les produits disponible.
   public onGetAvailableProducts(): void {
-    this.dataState$ = this.productsService.getAvailableProducts()
+    this.products$ = this.productsService.getAvailableProducts()
   }
 
   public onSearch(): void {
-
-   /* if(this.keyword && this.keyword.trim()) {
-      console.log("#keyword:",this.keyword);
-      this.productsService.searchAProduct(this.keyword).subscribe(
-        products => {
-          if(products) {
-            console.log("#produits rechercher:",products);
-            this.products = products;
-          }
-        },
-        error => {
-          console.warn("#Error: ",error);
-        }
-      )
+    if(!this.keyword) {
+      return;
     }
-    */
+    
+    this.products$ = this.productsService.searchAProduct(this.keyword);
   }
 
   public onDeleteProduct(id: number | undefined): void {
@@ -77,7 +66,11 @@ export class ProductsComponent {
     }
   }
 
-  public onEditeProduct(id: number | undefined): void {
+  public onGoToEditeProduct(id: number | undefined): void {
+
+    //#j'ai prefere mettre l'aid dans les parametres de l'url sinon on pouvais faire 
+    // une route dynamique dans le fichire de routage.
+
     if(id) {
       this.router.navigate(['edit-product'],{
         queryParams: {
@@ -88,7 +81,23 @@ export class ProductsComponent {
     }
   }
 
-  public onAddProduct(): void {
+  //#selectionner ou deselectionner un produit.
+
+  public onSelect(product: Product): void {
+    if(!product) {
+      return;
+    }
+    product.selected = !product.selected;
+
+    this.productsService.selectProduct(product).subscribe(
+      response => {
+        console.log("%c#Reponse de la selection recu du backend:","color: green;",response)
+      },
+      error => console.warn("#Error:",error)
+    )
+  }
+
+  public onGoToAddProduct(): void {
     this.router.navigate(['add-product']);
   }
   

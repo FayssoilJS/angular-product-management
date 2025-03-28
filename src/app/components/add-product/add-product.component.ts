@@ -24,30 +24,45 @@ export class AddProductComponent {
   
   private initializaations(): void {
     //#Initialisation du formulaire d'ajout d'un produit.
-    this.addFormInitializationFor();
+    this.addFormInitialization();
   }
 
-  private addFormInitializationFor(): void {
-    this.addProductForm = this.productsService.buildAddProductForm();
+  private addFormInitialization(): void {
+    this.addProductForm = this.productsService.buildProductForm();
   }
 
   //#ajout du produit.
   public onAddProduct(): void {
-    console.log("fffff");
+
     //#modal de confirmation.
     const isOk = confirm("Etes-vous sur de vouloire ajouter ce produit?");
+
     if(this.addProductForm && isOk) {
+
       const product = this.addProductForm.value as Product;
+
       console.log("Le produit a ajouter: ",product);
+
       this.productsService.addProduct(product).subscribe(
         response => console.log("#Reponse d'ajout d'un produit:",response),
         error => console.warn("#Error:",error)
       )
+
+      //#effacer les donner du formulaire apres l'ajout du produt.
+      this.resetFields();
     }
   }
 
   public onGoToBack(): void {
     this.location.back()
+  }
+
+  public resetFields(): void {
+    this.addProductForm.get('name')?.setValue("");
+    this.addProductForm.get('price')?.setValue("");
+    this.addProductForm.get('quantity')?.setValue("");
+    this.addProductForm.get('selected')?.setValue(false);
+    this.addProductForm.get('available')?.setValue(false);
   }
 
 }

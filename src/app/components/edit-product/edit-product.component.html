@@ -6,25 +6,58 @@
 
 <h1 class="page__title"> Modifier un produit </h1>
 
-<form>
-    <label>
-        <span>Nom</span> 
-        <input type="text">
-    </label>
-    <label>
-        Prix
-        <input type="text">
-    </label>
-    <label>
-        Quantités
-        <input type="text">
-    </label>
-    <label>
-        <input type="checkbox">
-        Sélectionné ?
-    </label>
-    <label>
-        <input type="checkbox">
-        Disponible ?
-    </label>
-</form>
+<ng-container [ngSwitch]="product.dataState">
+
+    <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+        Chargement ...
+    </ng-container>
+
+    <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+
+        <div class="errorMessage">
+            {{product.errorMessage}}
+        </div>
+        
+    </ng-container>
+
+    <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+
+        <div *ngIf="editProductForm">
+
+            <form [formGroup]="editProductForm">
+                <label>
+                    <span>Nom</span> 
+                    <input type="text" formControlName="name">
+                </label>
+                <label>
+                    Prix
+                    <input type="text" formControlName="price">
+                </label>
+                <label>
+                    Quantités
+                    <input type="text" formControlName="quantity">
+                </label>
+                <label>
+                    <input type="checkbox" formControlName="selected">
+                    Sélectionné ?
+                </label>
+                <label>
+                    <input type="checkbox" formControlName="available">
+                    Disponible ?
+                </label>
+
+                <button (click)="onEditProduct()" class="btn__action btn__action--primary">Enregistrer</button>
+
+            </form>
+            <pre>
+                ------------
+                {{editProductForm.value | json}}
+            </pre>
+        </div>
+
+        
+        
+    </ng-container>
+
+
+</ng-container>

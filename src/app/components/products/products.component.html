@@ -3,11 +3,11 @@
         <button (click)="OnGetAllproducts()" class="navbar__nav--btn">Toutes</button>
         <button (click)="onGetSelectedProducts()" class="navbar__nav--btn">Sélectionné</button>
         <button (click)="onGetAvailableProducts()" class="navbar__nav--btn">Disponibles</button>
-        <button (click)="onAddProduct()" class="navbar__nav--btn">Nouveau</button>
+        <button (click)="onGoToAddProduct()" class="navbar__nav--btn">Nouveau</button>
     </div>
     <div class="navbar__search">
         <form>
-            <input [(ngModel)]="keyword" name="keyword" type="text">
+            <input [(ngModel)]="keyword" name="keyword" type="text" placeholder="mot cles...">
             <button (click)="onSearch()" class="btn__search">Rechercher</button>
         </form>
     </div>
@@ -15,7 +15,7 @@
 
 <div class="products__list">
 
-    <ng-container *ngIf="dataState$ | async as result" [ngSwitch]="result.dataState">
+    <ng-container *ngIf="products$ | async as result" [ngSwitch]="result.dataState">
 
         <ng-container *ngSwitchCase="DataStateEnum.LOADING">
             Chargement ...
@@ -45,10 +45,13 @@
                             <button (click)="onDeleteProduct(product.id)" class="btn__action btn__action--danger">supprimer</button>
                         </td>
                         <td>
-                            <button (click)="onEditeProduct(product.id)" class="btn__action btn__action--light">modifier</button>
+                            <button (click)="onGoToEditeProduct(product.id)" class="btn__action">modifier</button>
                         </td>
                         <td>
-                            <button class="btn__action btn__action--success ">Sélectionner</button>
+                            <button (click)="onSelect(product)" class="btn__action" [ngClass]="{'btn__action--success': product.selected}">
+                                <span *ngIf="product.selected">Desélectionner</span>
+                                <span *ngIf="!product.selected">Sélectionner</span>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -59,7 +62,11 @@
         </ng-container>
 
         <ng-container *ngSwitchCase="DataStateEnum.ERROR">
-            {{result.errorMessage}}
+            
+            <div class="errorMessage">
+                {{result.errorMessage}}
+            </div>
+            
         </ng-container>
 
     </ng-container>

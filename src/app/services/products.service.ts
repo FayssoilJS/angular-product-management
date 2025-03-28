@@ -103,12 +103,12 @@ export class ProductsService {
             return of(
                 { 
                     dataState: DataStateEnum.ERROR, 
-                    errorMessage: "Saisir un mot cle!"
+                    errorMessage: "Saisir un mot clé !"
                 }
             );
         }
     
-        const params = new HttpParams().set("q", keyword.trim());
+        const params = new HttpParams().set("name_like", keyword.trim());
     
         const options = {
             headers: this.httpHeaders,
@@ -135,28 +135,40 @@ export class ProductsService {
         return this.httpClient.delete<Product>(url, options);
     }
 
-    editeProduct(id: number){
+    editeProduct(product: Product): Observable<Product>{
 
         const options = {
             headers: this.httpHeaders
         };
-
-        const url = `${environment.host}products`;
-        return this.httpClient.put(url, options);
+        //#On remarque que l'ipi json-server veut qu'on lui fournit aussi l'id.
+        const url = `${environment.host}products/${product.id}`;
+        return this.httpClient.put<Product>(url, product, options);
     }
 
-    addProduct(product: Product) {
+    addProduct(product: Product): Observable<Product> {
         const options = {
             headers: this.httpHeaders
         };
 
         const url = `${environment.host}products`;
-        return this.httpClient.post(url, product, options);
+
+        return this.httpClient.post<Product>(url, product, options);
+    }
+
+    selectProduct(product: Product): Observable<Product>{
+        const options = {
+            headers: this.httpHeaders
+        };
+        //#On remarque que l'ipi json-server veut qu'on lui fournit aussi l'id.
+        const url = `${environment.host}products/${product.id}`;
+
+        return this.httpClient.put<Product>(url, product, options);
     }
     //formulaire d'ajout de produit.
-    buildAddProductForm(): FormGroup {
+    buildProductForm(): FormGroup {
         const form = this.formBuilder.group(
             {
+                id:[""],
                 name: [""],
                 price: ["0"],
                 quantity: ["0"],

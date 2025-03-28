@@ -6,12 +6,12 @@
       "price": 2000,
       "quantity": 100,
       "available": true,
-      "selected": false
+      "selected": true
     },
     {
       "id": "2",
       "name": "Printer",
-      "price": 3000,
+      "price": "300",
       "quantity": 20,
       "available": true,
       "selected": false
@@ -30,7 +30,31 @@
       "price": "100",
       "quantity": "25",
       "available": true,
-      "selected": true
+      "selected": false
+    },
+    {
+      "id": "38ff",
+      "name": "Smartphone",
+      "price": "1000",
+      "quantity": "300",
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "5fb8",
+      "name": "Switch",
+      "price": "20",
+      "quantity": "20",
+      "available": true,
+      "selected": false
+    },
+    {
+      "id": "31e1",
+      "name": "Souris",
+      "price": "10",
+      "quantity": "50",
+      "available": true,
+      "selected": false
     }
   ]
 }

@@ -26,3 +26,11 @@ label:has(input[type=text]) {
         }
     }
 }
+
+.errorMessage {
+  background-color: #f44336;
+  color: #fff;
+  display: inline;
+  padding: .5rem;
+  border-radius: .2rem;
+}

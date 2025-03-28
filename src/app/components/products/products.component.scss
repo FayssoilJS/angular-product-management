@@ -49,14 +49,12 @@
 .btn__action {
     padding: .25rem;
     color: #000;
+    min-width: 6rem;
     &--danger {
         background-color: #f44336;
     }
     &--success {
         background-color: #07f556;
-    }
-    &--hight {
-        background-color: #faf6f6;
     }
     &:hover {
         cursor: pointer;
@@ -70,4 +68,12 @@
     text-align: center;
     width: 50vw;
     color: #f44336;
+}
+
+.errorMessage {
+    background-color: #f44336;
+    color: #fff;
+    display: inline;
+    padding: .5rem;
+    border-radius: .2rem;
 }

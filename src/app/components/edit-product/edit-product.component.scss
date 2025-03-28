@@ -13,18 +13,23 @@
   }
 }
 
-label:has(input[type=text]) {
+form {
+  width: 25vw;
+  label {
+    margin-bottom: .25rem;
+  }
+  label:has(input[type="text"]) {
     display: flex;
     flex-direction: column;
-    width: 25vw;
     gap: 4px;
     input {
-        padding: .25rem;
-        border-color: #d3d3d3;
-        &:focus {
-          outline: 2px solid #3f51b5;  
-        }
+      padding: 0.25rem;
+      border-color: #d3d3d3;
+      &:focus {
+        outline: 2px solid #3f51b5;
+      }
     }
+  }
 }
 
 .errorMessage {
@@ -33,4 +38,19 @@ label:has(input[type=text]) {
   display: inline;
   padding: .5rem;
   border-radius: .2rem;
+}
+
+.btn__action {
+  padding: 0.25rem;
+  color: #000;
+  width: 100%;
+  &--primary {
+    background-color: #3f51b5;
+  }
+  &:hover {
+    cursor: pointer;
+    color: #000000;
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out, color 0.2s ease-in;
+  }
 }

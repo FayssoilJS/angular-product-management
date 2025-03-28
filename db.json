@@ -14,20 +14,12 @@
       "price": "300",
       "quantity": 20,
       "available": true,
-      "selected": false
-    },
-    {
-      "id": "942c",
-      "name": "DVX",
-      "price": "200",
-      "quantity": "25",
-      "available": true,
       "selected": true
     },
     {
       "id": "d794",
       "name": "DVD",
-      "price": "100",
+      "price": "110",
       "quantity": "25",
       "available": true,
       "selected": true
@@ -38,7 +30,7 @@
       "price": "1000",
       "quantity": "300",
       "available": true,
-      "selected": false
+      "selected": true
     },
     {
       "id": "5fb8",
@@ -46,7 +38,7 @@
       "price": "20",
       "quantity": "20",
       "available": true,
-      "selected": false
+      "selected": true
     },
     {
       "id": "31e1",

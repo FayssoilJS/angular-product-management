@@ -1,0 +1,33 @@
+.products__list {
+    margin-top: 2rem;
+    table {
+        border-collapse: collapse;
+        width: 50vw;
+        tbody {
+
+            tr{
+                border: 2px solid #000;
+            }
+        }
+        th {
+            padding: .5rem;
+        }
+        th {
+            text-align: left;
+        }
+    }
+}
+
+.noData {
+    text-align: center;
+    width: 50vw;
+    color: #f44336;
+}
+
+.errorMessage {
+    background-color: #f44336;
+    color: #fff;
+    display: inline;
+    padding: .5rem;
+    border-radius: .2rem;
+}

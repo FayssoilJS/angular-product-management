@@ -1,0 +1,47 @@
+<div class="products__list">
+
+    <ng-container *ngIf="products$ | async as result" [ngSwitch]="result.dataState">
+
+        <ng-container *ngSwitchCase="DataStateEnum.LOADING">
+            Chargement ...
+        </ng-container>
+
+        <ng-container *ngSwitchCase="DataStateEnum.LOADED">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>Quantites</th>
+                        <th>sélectionné</th>
+                        <th>Disponible</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="result.data && result.data.length > 0 ">
+                    <!--ProductsItemcomponent-ChildComponent-->
+                    <!--"display: contents;" permet de bien afficher les td-->
+                    <tr *ngFor="let product of result.data">
+                        <app-products-item 
+                        [product]="product" 
+                        style="display: contents;"
+                        (productsEventEmitter)="onActionEvent($event)"></app-products-item>
+                    </tr>  
+                </tbody>
+            </table>
+            <div *ngIf="!result.data || result.data.length === 0" class="noData">
+                vide
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="DataStateEnum.ERROR">
+            
+            <div class="errorMessage">
+                {{result.errorMessage}}
+            </div>
+            
+        </ng-container>
+
+    </ng-container>
+    
+</div>

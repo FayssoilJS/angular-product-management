@@ -1,78 +1,10 @@
-<nav class="navbar">
-    <div class="navbar__nav">
-        <button (click)="OnGetAllproducts()" class="navbar__nav--btn">Toutes</button>
-        <button (click)="onGetSelectedProducts()" class="navbar__nav--btn">Sélectionné</button>
-        <button (click)="onGetAvailableProducts()" class="navbar__nav--btn">Disponibles</button>
-        <button (click)="onGoToAddProduct()" class="navbar__nav--btn">Nouveau</button>
-    </div>
-    <div class="navbar__search">
-        <form>
-            <input [(ngModel)]="keyword" name="keyword" type="text" placeholder="mot cles...">
-            <button (click)="onSearch()" class="btn__search">Rechercher</button>
-        </form>
-    </div>
-</nav>
+<!--ProductsNavbarComponent-childComponent-->
+<app-products-nav-bar (productsEventEmiiter)="onActionEvent($event)" ></app-products-nav-bar>
 
-<div class="products__list">
+<!--ProductsListComponent-childComponent-->
+<app-products-list [products$]="products$"(productsEventEmitter)="onActionEvent($event)" ></app-products-list>
 
-    <ng-container *ngIf="products$ | async as result" [ngSwitch]="result.dataState">
 
-        <ng-container *ngSwitchCase="DataStateEnum.LOADING">
-            Chargement ...
-        </ng-container>
-
-        <ng-container *ngSwitchCase="DataStateEnum.LOADED">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Prix</th>
-                        <th>Quantites</th>
-                        <th>sélectionné</th>
-                        <th>Disponible</th>
-                    </tr>
-                </thead>
-                <tbody *ngIf="result.data && result.data.length">
-                    <tr *ngFor="let product of result.data">
-                        <td> {{product.id}} </td>
-                        <td> {{product.name}} </td>
-                        <td> {{product.price}} </td>
-                        <td> {{product.quantity}} </td>
-                        <td [ngStyle]="{'color': product.selected?'#18f':''}">
-                            <span [ngClass]="{'fa fa-heart': product.selected}"></span>
-                        </td>
-                        <td [ngStyle]="{'color': product.available?'#18f':''}">
-                            <span [ngClass]="{'fa fa-check': product.available}"></span>
-                        </td>
-                        <td>
-                            <button (click)="onDeleteProduct(product.id)" class="btn__action btn__action--danger">supprimer</button>
-                        </td>
-                        <td>
-                            <button (click)="onGoToEditeProduct(product.id)" class="btn__action">modifier</button>
-                        </td>
-                        <td>
-                            <button (click)="onSelect(product)" class="btn__action" [ngClass]="{'btn__action--success': product.selected}">
-                                <span *ngIf="product.selected">Desélectionner</span>
-                                <span *ngIf="!product.selected">Sélectionner</span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div *ngIf="!result.data || result.data.length === 0" class="noData">
-                vide
-            </div>
-        </ng-container>
-
-        <ng-container *ngSwitchCase="DataStateEnum.ERROR">
-            
-            <div class="errorMessage">
-                {{result.errorMessage}}
-            </div>
-            
-        </ng-container>
-
-    </ng-container>
-    
-</div>
+<!---------------------------------------------------------------
+--------------------ProductsComponent-ParentComponent------------
+------------------------------------------------------------------->

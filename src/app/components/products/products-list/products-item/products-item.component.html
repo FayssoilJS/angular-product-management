@@ -1,0 +1,22 @@
+<td> {{product.id}} </td>
+<td> {{product.name}} </td>
+<td> {{product.price}} </td>
+<td> {{product.quantity}} </td>
+<td [ngStyle]="{'color': product.selected?'#18f':''}">
+    <span [ngClass]="{'fa fa-heart': product.selected}"></span>
+</td>
+<td [ngStyle]="{'color': product.available?'#18f':''}">
+    <span [ngClass]="{'fa fa-check': product.available}"></span>
+</td>
+<td>
+    <button (click)="onDeleteProduct(product.id)" class="btn__action btn__action--danger">supprimer</button>
+</td>
+<td>
+    <button (click)="onGoToEditeProduct(product.id)" class="btn__action">modifier</button>
+</td>
+<td>
+    <button (click)="onSelect(product)" class="btn__action" [ngClass]="{'btn__action--success': product.selected}">
+        <span *ngIf="product.selected">Desélectionner</span>
+        <span *ngIf="!product.selected">Sélectionner</span>
+    </button>
+</td>

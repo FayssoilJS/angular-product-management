@@ -1,0 +1,14 @@
+<nav class="navbar">
+    <div class="navbar__nav">
+        <button (click)="OnGetAllproducts()" class="navbar__nav--btn">Toutes</button>
+        <button (click)="onGetSelectedProducts()" class="navbar__nav--btn">Sélectionné</button>
+        <button (click)="onGetAvailableProducts()" class="navbar__nav--btn">Disponibles</button>
+        <button (click)="onGoToAddProduct()" class="navbar__nav--btn">Nouveau</button>
+    </div>
+    <div class="navbar__search">
+        <form>
+            <input [(ngModel)]="keyword" name="keyword" type="text" placeholder="mot cles...">
+            <button (click)="onSearch()" class="btn__search">Rechercher</button>
+        </form>
+    </div>
+</nav>

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActionEvent, AppDataState, DataStateEnum, ProductActionsTypes } from '../../../state/product.state';
 import { Product } from '../../../models/product.model';
+import { EventDriverService } from '../../../state/envent-driver.servicte';
 
 @Component({
   selector: 'app-products-list',
@@ -14,22 +15,18 @@ export class ProductsListComponent {
 
   readonly DataStateEnum = DataStateEnum;
 
-  @Output() productsEventEmitter: EventEmitter<ActionEvent> = new EventEmitter<ActionEvent>();
+  constructor(private eventDriverService: EventDriverService){}
 
   public onDeleteProduct(id: number | undefined):  void {
-    this.productsEventEmitter.emit({ type: ProductActionsTypes.DELETE_PRODUCT, payload: id });
+    this.eventDriverService.publishEvent({ type: ProductActionsTypes.DELETE_PRODUCT, payload: id });
+
   }
   public onGoToEditeProduct(id: number | undefined): void {
-    this.productsEventEmitter.emit({ type: ProductActionsTypes.EDIT_PRODUCT, payload: id });
+    this.eventDriverService.publishEvent({ type: ProductActionsTypes.EDIT_PRODUCT, payload: id });
   }
 
   public onSelect(product: Product): void {
-    this.productsEventEmitter.emit({ type: ProductActionsTypes.SELECT_PRODUCT, payload: product });
-  }
-
-  public onActionEvent($event: ActionEvent): void {
-    //#Il seront traiter dans le ParentComponent.
-    this.productsEventEmitter.emit($event);
+    this.eventDriverService.publishEvent({ type: ProductActionsTypes.SELECT_PRODUCT, payload: product });
   }
 
 }

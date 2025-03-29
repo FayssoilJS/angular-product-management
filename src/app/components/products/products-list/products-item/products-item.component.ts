@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../../../../models/product.model';
 import { ActionEvent, ProductActionsTypes } from '../../../../state/product.state';
+import { EventDriverService } from '../../../../state/envent-driver.servicte';
 
 @Component({
   selector: 'app-products-item',
@@ -11,18 +12,18 @@ export class ProductsItemComponent {
 
   @Input() product!: Product;
 
-  @Output() productsEventEmitter: EventEmitter<ActionEvent> = new EventEmitter<ActionEvent>();
+  constructor(private eventDriverService: EventDriverService){}
 
   public onDeleteProduct(id?: number): void {
-    this.productsEventEmitter.emit({ type: ProductActionsTypes.DELETE_PRODUCT, payload: id});
+    this.eventDriverService.publishEvent({ type: ProductActionsTypes.DELETE_PRODUCT, payload: id});
   }
 
   public onGoToEditeProduct(id?: number): void {
-    this.productsEventEmitter.emit({ type: ProductActionsTypes.EDIT_PRODUCT, payload: id});
+    this.eventDriverService.publishEvent({ type: ProductActionsTypes.EDIT_PRODUCT, payload: id});
   }
 
   public onSelect(product?: Product): void {
-    this.productsEventEmitter.emit({ type: ProductActionsTypes.SELECT_PRODUCT, payload: product});
+    this.eventDriverService.publishEvent({ type: ProductActionsTypes.SELECT_PRODUCT, payload: product});
   }
 
 }

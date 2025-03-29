@@ -46,7 +46,7 @@ export class EditProductComponent implements OnInit {
           console.log("%c#Le State recu:","color: red;",value)
           this.product = value;
           if(value.data) {
-            console.log("%c#Le State recu avex data:","color: green;",value)
+            console.log("%c#Le State recu avec data:","color: green;",value)
             //#Initialisation du formulaire de modifiaction d'un produit.
             this.editFormInitialization();
           }

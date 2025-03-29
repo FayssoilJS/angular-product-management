@@ -4,21 +4,37 @@ import { Product } from '../../models/product.model';
 import { ActionEvent, AppDataState, DataStateEnum, ProductActionsTypes } from '../../state/product.state';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { EventDriverService } from '../../state/envent-driver.servicte';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
 
   products$!: Observable<AppDataState<Product[]>> ;
 
+  cmptSelectedProducter: number = 0;
+   
   constructor(
     private productsService: ProductsService,
-    private router: Router
-  ){
+    private router: Router,
+    private eventDriverService: EventDriverService
+  ){}
 
+  ngOnInit(): void {
+
+    this.eventDriverService.sourceEventSubjectObservabla.subscribe( 
+      ($event: ActionEvent) => {
+        if($event) {
+          this.onActionEvent($event);
+        }
+      }
+    );
+
+    //#On compte le nombre de produit selectionner.
+    this.cmptSelectedProducterNumber();
   }
 
   //Recuperer l'etat de donnnees de toutes les produits.
@@ -88,7 +104,17 @@ export class ProductsComponent {
 
     this.productsService.selectProduct(product).subscribe(
       response => {
-        console.log("%c#Reponse de la selection recu du backend:","color: green;",response)
+        if(response) {
+          console.log("%c#Reponse de la selection recu du backend:","color: green;",response);
+          //#ici on av mettre a jour la valeur de numbre des produits selectionnés.
+          //#si le produit retourner a true dans l'attribut selected, on increment la valeur du compter
+          //sinon on decriment.
+          console.log("#Reponse de la selection recu du backend:",this.cmptSelectedProducter);
+          this.cmptSelectedProducter += response.selected ? 1 : -1;
+          console.log("#Reponse de la selection recu du backend:",this.cmptSelectedProducter);
+          //#je notifie le service concerner de cette modification.
+          this.eventDriverService.setSelectedProductNumber(this.cmptSelectedProducter);
+        } 
       },
       error => console.warn("#Error:",error)
     )
@@ -116,9 +142,22 @@ export class ProductsComponent {
     }
   }
 
+  cmptSelectedProducterNumber(): void {
+    //#je recupere les nombre des produits selectionner au backer.
+    this.productsService.getSelectedProducts().subscribe(
+      (data: AppDataState<Product[]>) => {
+        //# si la liste de produits selectionner est la, alors on compte les nombre de produit selectionner.
+        if(data && data.data) {
+          this.cmptSelectedProducter = data.data.length;
+          //#on met a jour le service pour qu'il puis le partager a celui qui en aura besoin.
+          this.eventDriverService.setSelectedProductNumber(this.cmptSelectedProducter);
+        }
+      }
+    )
+  }
+
   public onGoToAddProduct(): void {
     this.router.navigate(['add-product']);
   }
-  
   
 }

@@ -22,10 +22,7 @@
                     <!--ProductsItemcomponent-ChildComponent-->
                     <!--"display: contents;" permet de bien afficher les td-->
                     <tr *ngFor="let product of result.data">
-                        <app-products-item 
-                        [product]="product" 
-                        style="display: contents;"
-                        (productsEventEmitter)="onActionEvent($event)"></app-products-item>
+                        <app-products-item [product]="product" style="display: contents;"></app-products-item>
                     </tr>  
                 </tbody>
             </table>

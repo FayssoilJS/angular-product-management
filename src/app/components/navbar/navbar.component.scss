@@ -1,7 +1,7 @@
 .navbar {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background-color: #000;
     color: #fff;
@@ -16,4 +16,11 @@
 }
 .active {
     color: #18e;
+}
+
+.notification {
+    color: #fff;
+    background-color: #f44336;
+    padding: .25rem;
+    border-radius: 50px;
 }

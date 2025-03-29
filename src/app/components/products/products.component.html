@@ -1,8 +1,9 @@
 <!--ProductsNavbarComponent-childComponent-->
-<app-products-nav-bar (productsEventEmiiter)="onActionEvent($event)" ></app-products-nav-bar>
+<app-products-nav-bar></app-products-nav-bar>
+{{cmptSelectedProducter}}
 
 <!--ProductsListComponent-childComponent-->
-<app-products-list [products$]="products$"(productsEventEmitter)="onActionEvent($event)" ></app-products-list>
+<app-products-list [products$]="products$"></app-products-list>
 
 
 <!---------------------------------------------------------------
